@@ -19,6 +19,10 @@ $(function() {
     var $slotTypeSelect = $('#SlotType');
     var $calculateBets = $('#calculateBets');
     var $betAmount = $('#betAmount');
+    
+    function GetSlotTypeName(slotTypeNumber) {
+        return $slotTypeSelect.find("option[value='" + slotTypeNumber + "']").text();
+    }
 
     var Bet = function(slotType, slotTypeText, amount) {
         this.slotType = slotType;
@@ -43,7 +47,7 @@ $(function() {
 
                 $.each(item.BetResults, function(index2, betResult) {
                     var winnerSymbol = betResult.IsWinner ? ' + ' : ' - ';
-                    toolTip += '\n' + winnerSymbol + '$' + betResult.Delta + ' ' + betResult.Bet.SlotType;
+                    toolTip += '\n' + winnerSymbol + '$' + betResult.Delta + ' ' + GetSlotTypeName(betResult.Bet.SlotType);
                 });
 
                 dataArray.push([index + 1, runningTotal, toolTip]);
@@ -79,7 +83,7 @@ $(function() {
         results: ko.observableArray(),
         addBet: function () {
             if (parseInt($betAmount.val()) > 0) {
-                viewModel.bets.push(new Bet($slotTypeSelect.val(), $slotTypeSelect.find("option[value='" + $slotTypeSelect.val() + "']").text(), $betAmount.val()));
+                viewModel.bets.push(new Bet($slotTypeSelect.val(), GetSlotTypeName($slotTypeSelect.val()), $betAmount.val()));
             }
         },
         calculateBets: function () {
