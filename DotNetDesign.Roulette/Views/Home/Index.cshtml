@@ -1,0 +1,88 @@
+﻿@using System
+@using DotNetDesign.Roulette.Models;
+@model System.Collections.Generic.List<SelectListItem>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/knockout")
+    @Scripts.Render("https://www.google.com/jsapi")
+    @Scripts.Render("~/bundles/main")
+}
+
+<div class="row-fluid">
+    <div class="span8">
+        <h3>Roulette Strategy Tester</h3>
+        <form class="form-inline">
+            <label for="iterations">Iterations: </label><input id="iterations" type="text" data-bind="value: iterations"/>
+            <a href="#" class="btn btn-primary" data-bind="click: calculateBets" id="calculateBets" data-target="@Url.Action("CalculateBets")">Calculate Bets</a>
+        </form>
+        <hr/>
+        <h3>Results</h3>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Investment</th>
+                    <th>Delta</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody data-bind="foreach: results">
+                <tr>
+                    <td data-bind="text: investment"></td>
+                    <td data-bind="text: delta"></td>
+                    <td><a href="#" data-bind="click: showGraph">Show Graph</a></td>
+                    <td>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" data-bind="click: remove">&times;</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="span4">
+        <h3>Bet Information</h3>
+        <form>
+            @Html.DropDownList("SlotType", Model)
+            <div class="input-prepend input-append">
+                <span class="add-on">$</span>
+                <input id="betAmount" type="text">
+                <span class="add-on">.00</span>
+            </div>
+            <a href="#" class="btn btn-primary" data-bind="click: addBet">Place Bet</a>
+        </form>
+        <hr/>
+        <h3>Bets</h3>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Amount</th>
+                    <th>Bet Type</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody data-bind="foreach: bets">
+                <tr>
+                    <td>$<span data-bind="text: amount"></span></td>
+                    <td data-bind="text: slotTypeText"></td>
+                    <td>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" data-bind="click: remove">&times;</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div id="chartModal" class="modal hide fade">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+<h3>Chart</h3>
+</div>
+<div class="modal-body">
+<div id="chart_div" style="width: 500px; height: 300px;"></div>
+</div>
+</div>
