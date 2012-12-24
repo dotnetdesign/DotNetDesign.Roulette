@@ -7,6 +7,15 @@
     @Styles.Render("~/Content/css")
     @Styles.Render("~/Content/bootstrap")
     @Scripts.Render("~/bundles/modernizr")
+    <!--[if IE]>
+    <style>
+        table
+        {
+            table-layout: fixed;
+            width: 100px;
+        }
+    </style>
+    <![endif]-->
 </head>
 <body>
     @RenderBody()

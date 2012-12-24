@@ -14,7 +14,7 @@
 }
 
 <div class="row-fluid">
-    <div class="span8">
+    <div class="span7">
         <h3>Roulette Strategy Tester</h3>
         <form class="form-inline">
             <label for="iterations">Iterations: </label><input id="iterations" type="text" data-bind="value: iterations"/>
@@ -43,7 +43,7 @@
             </tbody>
         </table>
     </div>
-    <div class="span4">
+    <div class="span5">
         <h3>Bet Information</h3>
         <form>
             @Html.DropDownList("SlotType", Model)
@@ -56,7 +56,7 @@
         </form>
         <hr/>
         <h3>Bets</h3>
-        <table class="table table-striped">
+        <table class="table table-striped bets">
             <thead>
                 <tr>
                     <th>Amount</th>
@@ -67,7 +67,7 @@
             <tbody data-bind="foreach: bets">
                 <tr>
                     <td>$<span data-bind="text: amount"></span></td>
-                    <td data-bind="text: slotTypeText"></td>
+                    <td><span class="slotTypeText" data-bind="attr: { title: slotTypeText},text: slotTypeText"></span></td>
                     <td>
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true" data-bind="click: remove">&times;</button>
                     </td>

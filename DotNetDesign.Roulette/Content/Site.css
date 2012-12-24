@@ -1,3 +1,14 @@
-﻿#chartModal .modal-body {
+﻿
+
+#chartModal .modal-body {
     max-width: 800px;
+}
+
+.slotTypeText {
+    display: inline-block;
+    overflow: hidden;
+    max-width: 300px;
+    -ms-text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
 }
