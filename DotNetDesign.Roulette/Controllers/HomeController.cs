@@ -35,7 +35,7 @@ namespace DotNetDesign.Roulette.Controllers
             var winningNumbers = new List<Number>();
             for (var i = 0; i < model.Iterations; i++)
             {
-                winningNumbers.Add((Number) random.Next(1, 39));
+                winningNumbers.Add((Number)random.Next(1, 39));
             }
 
             var gameResults = new List<GameResult>(winningNumbers.Count);
@@ -45,7 +45,30 @@ namespace DotNetDesign.Roulette.Controllers
             var delta = gameResults.Sum(result => result.Delta);
 
 
-            return Json(new {investment, delta, gameResults});
+            return Json(new { investment, delta, gameResults });
+        }
+
+        [HttpPost]
+        public JsonResult CalculateDuration(CalculateDurationViewModel model)
+        {
+            var random = new Random();
+
+            var gameResults = new List<GameResult>();
+            var gameInvestment = model.Bets.Sum(x => x.Amount);
+            var wallet = model.Wallet;
+
+            GameResult gameResult;
+            while (wallet >= gameInvestment)
+            {
+                gameResult = new GameResult((Number)random.Next(1, 39), model.Bets);
+                wallet += gameResult.Delta;
+                gameResults.Add(gameResult);
+            }
+
+            var totalDuration = new TimeSpan(model.BetDuration.Ticks*gameResults.Count);
+
+
+            return Json(new { totalDuration = totalDuration.ToString(), wallet = model.Wallet, gameResults });
         }
     }
 }

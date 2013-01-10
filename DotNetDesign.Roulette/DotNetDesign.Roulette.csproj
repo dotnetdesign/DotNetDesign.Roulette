@@ -135,6 +135,7 @@
     <Compile Include="Models\Bet.cs" />
     <Compile Include="Models\BetResult.cs" />
     <Compile Include="Models\CalculateBetsViewModel.cs" />
+    <Compile Include="Models\CalculateDurationViewModel.cs" />
     <Compile Include="Models\GameResult.cs" />
     <Compile Include="Models\Number.cs" />
     <Compile Include="Models\Slot.cs" />

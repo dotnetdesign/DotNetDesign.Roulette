@@ -17,11 +17,12 @@
     <div class="span7">
         <h3>Roulette Strategy Tester</h3>
         <form class="form-inline">
+            <h3>Iteration Calculation</h3>
             <label for="iterations">Iterations: </label><input id="iterations" type="text" data-bind="value: iterations"/>
             <a href="#" class="btn btn-primary" data-bind="click: calculateBets" id="calculateBets" data-target="@Url.Action("CalculateBets")">Calculate Bets</a>
         </form>
         <hr/>
-        <h3>Results</h3>
+        <h3>Iteration Results</h3>
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -31,10 +32,36 @@
                     <th></th>
                 </tr>
             </thead>
-            <tbody data-bind="foreach: results">
+            <tbody data-bind="foreach: iterationResults">
                 <tr>
                     <td data-bind="text: investment"></td>
                     <td data-bind="text: delta"></td>
+                    <td><a href="#" data-bind="click: showGraph">Show Graph</a></td>
+                    <td>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" data-bind="click: remove">&times;</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <hr/>
+        <form class="form-inline">
+            <h3>Duration Calculation</h3>
+            <label for="wallet">Wallet: </label><input id="wallet" type="text" data-bind="value: wallet"/> |
+            <label for="betDuration">Bet Duration: </label><input id="betDuration" type="text" data-bind="value: betDuration"/>
+            <a href="#" class="btn btn-primary" data-bind="click: calculateDuration" id="calculateDuration" data-target="@Url.Action("CalculateDuration")">Calculate Duration</a>
+        </form>
+        <hr/>
+        <h3>Duration Results</h3>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Total Duration</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody data-bind="foreach: durationResults">
+                <tr>
+                    <td data-bind="text: totalDuration"></td>
                     <td><a href="#" data-bind="click: showGraph">Show Graph</a></td>
                     <td>
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true" data-bind="click: remove">&times;</button>
