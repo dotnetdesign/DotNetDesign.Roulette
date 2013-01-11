@@ -4,6 +4,7 @@
     {
         Zero,
         DoubleZero,
+        RandomSingleValue,
         One,
         Two,
         Three,

@@ -1,33 +1,46 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace DotNetDesign.Roulette.Models
 {
     public class Slot
     {
+        private static Random _random = new Random();
+        private bool IsRandom { get; set; }
         public Number[] WinningNumbers { get; set; }
         public int Multiplier { get; set; }
+
+        private Slot(int multiplier)
+        {
+            Multiplier = multiplier;
+            IsRandom = true;
+        }
 
         public Slot(int multiplier, params Number[] winningNumbers)
         {
             Multiplier = multiplier;
             WinningNumbers = winningNumbers;
+            IsRandom = false;
         }
 
         public bool IsWinner(Number hitNumber)
         {
-            return WinningNumbers.Contains(hitNumber);
+            return (IsRandom)
+                ? (Number)_random.Next(1, 39) == hitNumber
+                : WinningNumbers.Contains(hitNumber);
         }
 
-        public int GetWinnings(Number hitNumber, int betAmount)
+        public int GetWinnings(bool isWinner, int betAmount)
         {
-            return IsWinner(hitNumber)
+            return isWinner
                        ? (Multiplier + 1)*betAmount
                        : 0;
         }
 
         public static Dictionary<SlotType, Slot> Slots = new Dictionary<SlotType, Slot>
             {
+                {SlotType.RandomSingleValue, new Slot(35)},
                 {SlotType.Zero, new Slot(35, Number.Zero)},
                 {SlotType.DoubleZero, new Slot(35, Number.DoubleZero)},
                 {SlotType.One, new Slot(35, Number.One)},

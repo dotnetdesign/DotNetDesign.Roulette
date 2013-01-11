@@ -13,7 +13,7 @@
             var slot = Slot.Slots[this.Bet.SlotType];
             this.IsWinner = slot.IsWinner(hitNumber);
 
-            this.Delta = slot.GetWinnings(hitNumber, this.Bet.Amount) - this.Bet.Amount;
+            this.Delta = slot.GetWinnings(this.IsWinner, this.Bet.Amount) - this.Bet.Amount;
         }
     }
 }
